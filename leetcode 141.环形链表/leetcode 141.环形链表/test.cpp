@@ -1,0 +1,26 @@
+#define _CRT_SECURE_NO_WARNINGS 1 
+
+
+ struct ListNode 
+ {
+     int val;
+     ListNode *next;
+};
+ 
+class Solution {
+public:
+    bool hasCycle(ListNode* head)
+    {
+        if (head == nullptr) return false;
+        ListNode* slow = new ListNode(), * fast = new ListNode();
+        slow = head;
+        fast = head->next;
+        while (slow != fast)
+        {
+            if (fast == nullptr || fast->next == nullptr) return false;
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return true;
+    }
+};
