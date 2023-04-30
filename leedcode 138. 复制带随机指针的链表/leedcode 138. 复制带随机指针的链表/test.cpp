@@ -12,64 +12,29 @@ public:
         random = nullptr;
     }
 };
-
 class Solution {
 public:
     Node* copyRandomList(Node* head)
     {
         if (head == nullptr) return nullptr;
-        Node* newhead = new Node(0), * headtmp = new Node(0);
-        headtmp = head;
-        Node* newheadt = newhead, * nhead = newhead;
-        while (head)
+        for (Node* node = head; node != nullptr; node = node->next->next)
         {
-            newhead = head;
-            head->next = newhead;
-            newhead = newhead->next;
-            head = head->next;
+            Node* nodeNew = new Node(node->val);
+            nodeNew->next = node->next;
+            node->next = nodeNew;
         }
-        while (newheadt)
+        for (Node* node = head; node != nullptr; node = node->next->next)
         {
-            if (newheadt->random);
-            else newheadt->random = headtmp->random->next;
-            newheadt = newheadt->next;
-            headtmp = headtmp->next;
+            Node* nodeNew = node->next;
+            nodeNew->random = (node->random != nullptr) ? node->random->next : nullptr;
         }
-        while (nhead)
+        Node* headNew = head->next;
+        for (Node* node = head; node != nullptr; node = node->next)
         {
-            if (nhead->next);
-            else nhead->next = nhead->next->next;
-            nhead = nhead->next;
+            Node* nodeNew = node->next;
+            node->next = node->next->next;
+            nodeNew->next = (nodeNew->next != nullptr) ? nodeNew->next->next : nullptr;
         }
-        return nhead;
+        return headNew;
     }
 };
-
-int main()
-{
-    Node* head = new Node(0);
-    Node* headt = head;
-    head->val = 7;
-    head->random = nullptr;
-    head->next = new Node(0);
-    head = head->next;
-    head->val = 13;
-    head->random = nullptr;
-    head->next = new Node(0);;
-    head = head->next;
-    head->val = 11;
-    head->random = nullptr;
-    head->next = new Node(0);
-    head = head->next;
-    head->val = 10;
-    head->random = nullptr;
-    head->next = new Node(0);
-    head = head->next;
-    head->val = 1;
-    head->random = nullptr;
-    head->next = new Node(0);
-    head = head->next;
-    Solution a;
-    a.copyRandomList(headt);
-    return 0;
-}
