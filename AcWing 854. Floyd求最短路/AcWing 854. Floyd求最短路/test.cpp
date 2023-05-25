@@ -6,7 +6,7 @@
 
 using namespace std;
 
-const int N = 210, INT = 1e9;
+const int N = 1400, INT = 1e9;
 
 int n, m, k;
 int d[N][N];
@@ -25,24 +25,24 @@ int main()
 		for (int j = 1; j <= n; j++)
 			if (i == j) d[i][j] = 0;
 			else d[i][j] = INT;
-	while (m--)
-	{
-		int a, b, c;
-		cin >> a >> b >> c;
-		d[a][b] = min(d[a][b], c);
-	}
-
+	for(int i = 1; i <= n; i++)
+		for (int j = 1; j <= n; j++)
+		{
+			int c;
+			cin >> c;
+			d[i][j] = min(d[i][j], c);
+		}
 	floyd();
 
-	while (k--)
+	for (int i = 1; i <= n; i++)
 	{
-		int a, b;
-		cin >> a >> b;
-
-		int t = d[a][b];
-		if (t >= INT/2)cout << "impossible" << endl;
-		else cout << t << endl;
+		for (int j = 1; j <= n; j++)
+		{
+			cout << d[i][j] << "|" << " ";
+		}
+		cout << endl;
 	}
+
 
 	return 0;
 }
